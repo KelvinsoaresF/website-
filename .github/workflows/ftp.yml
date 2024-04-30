@@ -1,0 +1,19 @@
+name: Deploy to UTP 
+on:
+  push:
+    branches:
+      - main 
+jobs:
+  ftp-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2 
+
+    - name: Uplaod file to FTP
+      uses: SamKirkkland/FTP-Deploy-Action@4.3.1
+      with:
+        server: ${{ secrets.FTP_SEVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        local.dir: './httpfiles/'
